@@ -39,6 +39,8 @@ int main(int argc, char **argv)
     coef_aleatoire=1.9;
     taille_carte=5;
 
+    AllocConsole();
+ 
 /* Initialisation de la fenètres de debuging */
 
     SDL_Window* fenetre_debug = NULL;
