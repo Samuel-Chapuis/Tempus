@@ -1,4 +1,4 @@
-/* ---- Fonction generationcarte ----*/
+/* ---- Fonctions de generation ----*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 
 void generationcarte(bric **carte,int TC,int roughness,int HI,int joueurs)
 {
-/* ===== videur de mémoire =====*/
+/* --------- videur de mémoire --------- */
 
     for(int i=0;i<TC;i++)
     {
@@ -36,15 +36,7 @@ void generationcarte(bric **carte,int TC,int roughness,int HI,int joueurs)
     carte[0][TC-1].hauteur=rand()%(HI+1);
     carte[TC-1][TC-1].hauteur=rand()%(HI+1);
 
-//    carte[0][0].hauteur=10;
-//    carte[TC-1][0].hauteur=10;
-//    carte[0][TC-1].hauteur=10;
-//    carte[TC-1][TC-1].hauteur=10;
-
-/* ===== Phase de géneration de la carte ===== */
-
-//commande de test
-//printf("\t%d\t%d\t%d\t%d\n\n",carte[0][0].hauteur,carte[0][TC-1].hauteur,carte[TC-1][0].hauteur,carte[TC-1][TC-1].hauteur);
+/* --------- Phase de géneration de la carte --------- */
 
     //Carré
     int half;
@@ -66,7 +58,7 @@ void generationcarte(bric **carte,int TC,int roughness,int HI,int joueurs)
            }
         }
 
-        //Diamant
+    //Diamant
         for(x=0;x<TC-1;x+=half)
         {
             for(y=(x+half)%sl;y<TC-1;y+=half) //permet d'aller en diagonal pour trouver le centre.
@@ -84,35 +76,77 @@ void generationcarte(bric **carte,int TC,int roughness,int HI,int joueurs)
             }
         }
     }
+/// Pour la carte est bien un rapport de 3/4 on tronque 1/4 du bas de la carte initialement carré:
+    for(int i=0;i<TC;i++)
+    {
+        for(int j=0.75+1*TC;j<TC;j++)
+        {
+            carte[i][j].hauteur=0;
+            carte[i][j].territoire=0;
+            carte[i][j].ville.habitants=0;
+            carte[i][j].ville.joueur=0;
+            carte[i][j].unite.classe=0;
+            carte[i][j].unite.joueur=0;
+        }
+    }
+
 }
 
 /*--------------- ---------------*/
 
-int generationposition(bric **carte,int TC,int roughness,int HI,int joueurs)
+
+void creation_ville(bric **carte,int x, int y, int couleur)
+{
+    int u;
+    int v;
+    carte[x][y].ville.habitants=1;
+    carte[x][y].ville.joueur=couleur;
+
+    do{
+        u=rand()%3;
+        v=rand()%3;
+    }while((u==1||v==1)||(carte[x-1+u][y-1+v].hauteur<=1));
+
+    carte[x-1+u][y-1+v].unite.classe=2;
+    carte[x-1+u][y-1+v].unite.joueur=couleur;
+
+    for(int ui=-1;ui<=1;ui++)
+        {
+            for(int uj=-1;uj<=1;uj++)
+            {
+                carte[ui+x][uj+y].territoire=couleur;
+                if(carte[ui+x][uj+y].hauteur>1&&carte[ui+x][uj+y].hauteur<=4)
+                carte[ui+x][uj+y].hauteur=-1;
+            }
+        }
+}
+
+/*--------------- ---------------*/
+
+
+int generationposition(bric **carte,int TC,int roughness,int HI,int nb_joueurs)
 {
     int temp_i=0;
     int temp_j=0;
     int eau=0;
     int enemie=0;
     int crash=0;
-    int u=0;
-    int v=0;
     srand(time(NULL));
 
-    for(int michel=1;michel<=joueurs;michel++)
-   {
+    for(int couleur=1;couleur<=nb_joueurs;couleur++)
+    {
         do
         {
             eau=0;
             enemie=0;
             temp_i=(rand()%(TC-4))+2;
-            temp_j=(rand()%(TC-4))+2;
+            temp_j=(rand()%(TC-4-TC/3))+2;
 
             for(int ui=-2;ui<=2;ui++) //Test de la proximité des ville adverses
             {
                 for(int uj=-2;uj<=2;uj++)
                 {
-                    if((carte[ui+temp_i][uj+temp_j].ville.joueur!=michel)&&(carte[ui+temp_i][uj+temp_j].ville.joueur!=0))
+                    if((carte[ui+temp_i][uj+temp_j].ville.joueur!=couleur)&&(carte[ui+temp_i][uj+temp_j].ville.joueur!=0))
                     {
                         enemie++;
                     }
@@ -131,28 +165,9 @@ int generationposition(bric **carte,int TC,int roughness,int HI,int joueurs)
             crash++;
         }while((eau>=3||enemie!=0)&&crash<CRASH);
 
-        carte[temp_i][temp_j].ville.habitants=1;
-        carte[temp_i][temp_j].ville.joueur=michel;
-
-
-
-        do{
-            u=rand()%3;
-            v=rand()%3;
-        }while((u==1||v==1)||(carte[temp_i-1+u][temp_j-1+v].hauteur<=1));
-
-        carte[temp_i-1+u][temp_j-1+v].unite.classe=2;
-        carte[temp_i-1+u][temp_j-1+v].unite.joueur=michel;
-
-        for(int ui=-1;ui<=1;ui++)
-            {
-                for(int uj=-1;uj<=1;uj++)
-                {
-                    carte[ui+temp_i][uj+temp_j].territoire=michel;
-                }
-            }
+        creation_ville(carte, temp_i, temp_j, couleur);
+        carte[temp_i][temp_j].ville.gen = 1;
    }
-
    if(crash>=CRASH){ return 2001; }
    return 0;
 }

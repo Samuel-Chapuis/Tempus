@@ -1,11 +1,11 @@
 #ifndef DEFINITION_H_INCLUDED
 #define DEFINITION_H_INCLUDED
 
-#define TECH 10 //dÃ©finit le nombre d'Ã©tudiant maxium.
+#define TECH 10 //définit le nombre d'étudiant maxium.
 
-/* DÃ©finition des cases des de la carte */
+/* Définition des cases des de la carte */
 
-/// Reference des couleurs utilisÃ©es pour les joueurs ///
+/// Reference des couleurs utilisées pour les joueurs ///
     /*
     1-Violet
 	2-Turquoise
@@ -16,7 +16,7 @@
 	*/
 /// --------------------------------------------- ///
 
-/* DÃ©finition des cases de jeux */
+/* Définition des cases de jeux */
 struct villes
 {
     int habitants;
@@ -27,13 +27,13 @@ struct unites
 {
     int classe; //0=>Rien 1=>Villageois 2=>Chevaliers
     int joueur; //Couleurs
-    int pm; //1 l'unitÃ© peut se dÃ©placer 0 l'unitÃ© ne peut pas
+    int pm; //1 l'unité peut se déplacer 0 l'unité ne peut pas
 };
 
 typedef struct
 {
-    int hauteur; //par dÃ©faut entre 0 et +infini, et qui permet de creer les ocÃ©ans,
-    //les prairies, les forÃªts et les montagnes, les valeurs qui sont rajoutÃ© par la suite sont nÃ©gatives,
+    int hauteur; //par défaut entre 0 et +infini, et qui permet de creer les océans,
+    //les prairies, les forêts et les montagnes, les valeurs qui sont rajouté par la suite sont négatives,
     //-1 pour les champs
 
     struct villes ville;
@@ -42,13 +42,13 @@ typedef struct
 }bric;
 /*--------------- ---------------*/
 
-/* DÃ©finition des joeurs */
+/* Définition des joeurs */
 
  typedef struct
  {
     int couleur; //Couleurs
     int science_total;
-    int nb_habitants; // => directement correller Ã  la generation de science par tour, sert aussi de dans la comptabilisation du score en fin de partie
+    int nb_habitants; // => directement correller à la generation de science par tour, sert aussi de dans la comptabilisation du score en fin de partie
     int nb_villes;
  }joueur;
  /*--------------- ---------------*/

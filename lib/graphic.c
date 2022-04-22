@@ -22,6 +22,8 @@ SDL_Texture* graphic_case_fond(bric bk, SDL_Renderer *r)
         image = SDL_LoadBMP("sprite/colline.bmp");
     else if(bk.hauteur>8)
         image = SDL_LoadBMP("sprite/montagne.bmp");
+    else if(bk.hauteur==-1)
+        image = SDL_LoadBMP("sprite/champ.bmp");
 
     tutur = SDL_CreateTextureFromSurface(r,image);
     SDL_FreeSurface(image);
@@ -247,7 +249,7 @@ void graphic_plateau(bric **carte, int TC, SDL_Renderer *r)
 
     for(int i=0;i<TC;i++)
     {
-        for(int j=0;j<TC;j++)
+        for(int j=0;j<TC*0.75;j++) // Pour la carte est bien un rapport de 3/4 on tronque 1/4 du bas de la carte initialement carré:
         {
             fond = graphic_case_fond(carte[i][j],r);
             ville = graphic_case_ville(carte[i][j],r);
@@ -260,7 +262,6 @@ void graphic_plateau(bric **carte, int TC, SDL_Renderer *r)
             SDL_RenderCopy(r, bordure, NULL, &dst);
             SDL_RenderCopy(r, troupe, NULL, &dst);
             SDL_RenderPresent(r);
-
         }
     }
     SDL_DestroyTexture(fond);

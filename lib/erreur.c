@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "color.h"
+
 
 /** Zone de gestion des erreurs potentiels **/
 

@@ -1,5 +1,5 @@
 /*
---------- Projet 1er annÃ©e ---------
+--------- Projet 1er année ---------
 
  Createurs: Romane Boudet et Samuel Chapuis
 
@@ -16,7 +16,7 @@
 #include <SDL2/SDL.h>
 
 
-/* ------- DÃ©claration des sous programmes ------- */
+/* ------- Déclaration des sous programmes ------- */
 #include "lib/generation.h"
 #include "definition.h"
 #include "lib/graphic.h"
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 /* Initialisation de la console qui permetra de debugger */
 
     AllocConsole();
-    /// Appuyer sur F10 doit permettre d'afficher la console sinon suprimÃ© la ligne si dessous ///
+    /// Appuyer sur F10 doit permettre d'afficher la console sinon suprimé la ligne si dessous ///
     ShowWindow(GetConsoleWindow(),SW_HIDE);
     int console = 0;
 
@@ -50,13 +50,13 @@ int main(int argc, char **argv)
 
     taille_carte=5;
 
-/* Defition du nombre de joueurs et de la taille de la carte relativement Ã  Ã§a */
+/* Defition du nombre de joueurs et de la taille de la carte relativement à ça */
 
 
 /*--------------- ---------------*/
 
 
-/* Initialisation des fenÃ¨tres de jeux */
+/* Initialisation des fenètres de jeux */
 
     int carte_x = 1055;
     int carte_y = 800;
@@ -85,7 +85,7 @@ int main(int argc, char **argv)
 
 
 
-/* Definition des valeurs des objets relative au paramÃ¨ter de la partie */
+/* Definition des valeurs des objets relative au paramèter de la partie */
 
     coef_aleatoire=coef_aleatoire*(pow(2,taille_carte)+1)/2;
     hauteur_max=hauteur_max*(pow(2,taille_carte)+1)/2;
@@ -94,15 +94,15 @@ int main(int argc, char **argv)
 /*--------------- ---------------*/
 
 
-/* CrÃ©ation de la carte et allocution de la mÃ©moire */
+/* Création de la carte et allocution de la mémoire */
 
     bric** carte; //creer un double pointeur carte
-    carte=(bric**)malloc(taille_carte*sizeof(bric*)); //dÃ©finit un tableau de pointeur de taille "sizeof(bric)*taille_carte" subdivisÃ© en "bric".
+    carte=(bric**)malloc(taille_carte*sizeof(bric*)); //définit un tableau de pointeur de taille "sizeof(bric)*taille_carte" subdivisé en "bric".
     for(int i=0;i<taille_carte;i++)
     {
-        carte[i]=(bric*)malloc(taille_carte*sizeof(bric)); //dÃ©finit un tableau de 1 dim de taille "sizeof(bric)*taille_carte" subdivisÃ© en "bric".
+        carte[i]=(bric*)malloc(taille_carte*sizeof(bric)); //définit un tableau de 1 dim de taille "sizeof(bric)*taille_carte" subdivisé en "bric".
     }
-    //Les deux lignes prÃ©cedente permettent de definire la carte sous la forme d'un tableau a deux dimensions
+    //Les deux lignes précedente permettent de definire la carte sous la forme d'un tableau a deux dimensions
 /*--------------- ---------------*/
 
 
@@ -165,7 +165,7 @@ int main(int argc, char **argv)
 
 
 
-/* LibÃ©ration de la mÃ©moire */
+/* Libération de la mémoire */
 
     for(int i=0;i<taille_carte;i++)
     {
