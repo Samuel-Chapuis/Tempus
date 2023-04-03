@@ -1,0 +1,6 @@
+#ifndef ARBRE_DE_TECHNOLGIES_H_INCLUDED
+#define ARBRE_DE_TECHNOLGIES_H_INCLUDED
+
+void arbre_tech(joueur* player);
+
+#endif // ARBRE_DE_TECHNOLGIES_H_INCLUDED
