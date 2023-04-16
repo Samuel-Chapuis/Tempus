@@ -8,6 +8,6 @@ REQUIERMENT:
 1. Windows
 --------------------------------------------------
 USAGE:
-1. Run the programegame
+1. Run the game
 2. Play
 ----------------------------------------
